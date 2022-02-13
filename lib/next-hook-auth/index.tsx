@@ -88,19 +88,25 @@ export const useAuth = (redirect = false) => {
   const context = useContext(AuthContext)
   const fetcher = () => {
     console.log("access-token:" + localStorage.getItem('access-token'))
-    if (localStorage.getItem('access-token') !== 'undefined')
+    if (localStorage.getItem('access-token') == 'undefined') {
+      console.log("useAuth() fails")
       throw Error('Unauthorized')
+    }
     return axios.get(context.config.currentUserPath).then((res) => {
       console.log("authorized.")
       return res.data
     })
   }
+  console.log("useAuth() CH-01")
   const { data, error } = useSWR(context.config.currentUserPath, fetcher)
   const router = useRouter()
+  console.log("useAuth() CH-02")
 
   useEffect(() => {
+    console.log("useAuth() CH-03")
     if (error && redirect) router.push(context.config.redirectPath)
   }, [data, error])
+  console.log("useAuth() CH-04")
 
   return {
     currentUser: !error && data,

@@ -28,7 +28,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <AuthProvider
         signinPath="/auth/sign_in"
         signoutPath="/auth/sign_out"
-        currentUserPath="/auth/me"
+        currentUserPath="/user/me"
         redirectPath="/"
         resourceName=""
       >
