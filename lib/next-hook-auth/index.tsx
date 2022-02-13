@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from '../../lib/axios'
 import useSWR, { mutate } from 'swr'
+import customAxios from '../../lib/customAxios'
 
 export type Props = {
   currentUserPath: string
@@ -92,7 +93,7 @@ export const useAuth = (redirect = false) => {
       console.log("useAuth() fails")
       throw Error('Unauthorized')
     }
-    return axios.get(context.config.currentUserPath).then((res) => {
+    return customAxios.get(context.config.currentUserPath).then((res) => {
       console.log("authorized.")
       return res.data
     })
