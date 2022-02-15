@@ -43,6 +43,7 @@ export const Layout: React.FC<Props> = ({
   generatedAt,
   children,
 }) => {
+  console.log("Layout signedin:" + signedin)
   if (loading) {
     return (
       <div className="flex justify-center px-4 mt-20 sm:px-6 lg:px-8 pt-8">

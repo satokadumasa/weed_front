@@ -31,6 +31,7 @@ const Login = () => {
     axios
       .post('/api/login', payload)
       .then((res) => {
+        console.log("onClickLogin success.")
         // ログインフラグをクッキーへ、「auth」というキーで登録
         setCookie(null, 'auth', 'true', {
           maxAge: 30 * 24 * 60 * 60, // お好きな期限を
@@ -39,6 +40,7 @@ const Login = () => {
         router.push('/');
       })
       .catch((e) => {
+        console.log("onClickLogin false.")
         console.log('認証エラー');
       });
   };

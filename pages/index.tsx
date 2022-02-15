@@ -5,6 +5,7 @@ import { useAuth } from '../lib/next-hook-auth'
 
 const Home: React.FC = () => {
   const { currentUser } = useAuth()
+  console.log("currentUser:" + currentUser)
 
   return (
     <Layout signedin={!!currentUser}>

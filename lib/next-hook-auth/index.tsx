@@ -53,17 +53,22 @@ export type SigninParams = {
 export const useSignin = () => {
   console.log("useSignin()")
   const context = useContext(AuthContext)
+  const router = useRouter()
   return async (params: SigninParams) => {
     const signinParams = {}
     signinParams[context.config.resourceName] = params
-    // await axios.post(context.config.signinPath, signinParams)
     await axios.post(context.config.signinPath, params).then((res) => {
       console.log("access-token:" + res.headers['access-token'])
       localStorage.setItem('access-token', res.headers['access-token']);
       localStorage.setItem('client', res.headers['client']);
       localStorage.setItem('uid', res.headers['uid']);
-    })
+      localStorage.setItem('next-hook-auth', 'signin')
+    }).catch(err => {
+      console.log('err:', err)
+      return;
+    });
     await mutate(context.config.currentUserPath)
+    router.push(context.config.redirectPath)
   }
 }
 
@@ -71,8 +76,8 @@ export const useSignout = () => {
   console.log("useSignout()")
   const context = useContext(AuthContext)
   return async () => {
-    await axios.get(context.config.currentUserPath)
-    await axios.delete(context.config.signoutPath)
+    await customAxios.get(context.config.currentUserPath)
+    await customAxios.delete(context.config.signoutPath)
     localStorage.setItem('next-hook-auth', 'signout')
     await mutate(context.config.currentUserPath)
   }
@@ -87,6 +92,7 @@ export type User = {
 export const useAuth = (redirect = false) => {
   console.log("useAuth()")
   const context = useContext(AuthContext)
+  let status = ""
   const fetcher = () => {
     console.log("access-token:" + localStorage.getItem('access-token'))
     if (localStorage.getItem('access-token') == 'undefined') {
@@ -94,23 +100,30 @@ export const useAuth = (redirect = false) => {
       throw Error('Unauthorized')
     }
     return customAxios.get(context.config.currentUserPath).then((res) => {
-      console.log("authorized.")
+      localStorage.setItem(
+        'next-hook-auth',
+        res.status === 401 ? 'signout' : 'signin'
+      )
+      status = res.status
+      console.log("res.status:" + status)
+      console.log("next-hook-auth:" + localStorage.getItem('next-hook-auth'))
       return res.data
     })
   }
-  console.log("useAuth() CH-01")
   const { data, error } = useSWR(context.config.currentUserPath, fetcher)
   const router = useRouter()
-  console.log("useAuth() CH-02")
+
+  console.log("useAuth() data" + JSON.stringify(data))
 
   useEffect(() => {
-    console.log("useAuth() CH-03")
+    // if (router.pathname === context.config.redirectPath) return;
+    // if (router.pathname === "/profile") return;
+    // if (router.pathname === "/auth/signin") return;
     if (error && redirect) router.push(context.config.redirectPath)
   }, [data, error])
-  console.log("useAuth() CH-04")
 
   return {
-    currentUser: !error && data,
+    currentUser: !error,
     loading: (!error && !data) || (redirect && !data),
   }
 }

@@ -13,9 +13,11 @@ const SigninForm: React.FC<Props> = ({ signin }) => {
 
   const onSubmit = async (params: SigninParams) => {
     try {
+      console.log("SigninForm.onSubmit()")
       await signin(params)
       addToast('Sign in Successfully', { appearance: 'success' })
     } catch (e) {
+      console.log("SigninForm.onSubmit() false")
       addToast('Please reconfirm your input', { appearance: 'error' })
     }
   }
