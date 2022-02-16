@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ToastProvider } from 'react-toast-notifications'
-import { AuthProvider } from '../lib/next-hook-auth'
+import { AuthProvider } from '@/lib/next-hook-auth'
 import 'tailwindcss/tailwind.css'
 import 'react-tippy/dist/tippy.css'
 
@@ -28,6 +28,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <AuthProvider
         signinPath="/auth/sign_in"
         signoutPath="/auth/sign_out"
+        signupPath="/accounts/sign_up"
         currentUserPath="/user/me"
         redirectPath="/"
         resourceName=""

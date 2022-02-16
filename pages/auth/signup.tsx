@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import Layout from '@/components/Layout'
-import SigninForm from '@/components/forms/SigninForm'
-import { useAuth, useSignin } from '@/lib/next-hook-auth'
+import SignupForm from '@/components/forms/SignupForm'
+import { useAuth, useSignup } from '@/lib/next-hook-auth'
 import { useRouter } from 'next/router'
 
 const Signin: React.FC = () => {
   const router = useRouter()
   const { currentUser, loading } = useAuth()
-  const signin = useSignin()
+  const signup = useSignup()
 
   useEffect(() => {
     currentUser && router.push('/')
@@ -28,7 +28,7 @@ const Signin: React.FC = () => {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600"></p>
           </div>
-          <SigninForm signin={signin} />
+          <SignupForm signup={signup} />
         </div>
       </div>
     </Layout>

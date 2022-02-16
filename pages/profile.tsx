@@ -1,8 +1,8 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Layout from '../components/Layout'
-import Header from '../components/Haeder'
-import LinkButton from '../components/LinkButton'
+import Layout from '@/components/Layout'
+import Header from '@/components/Haeder'
+import LinkButton from '@/components/LinkButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHome,

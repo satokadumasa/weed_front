@@ -1,20 +1,20 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
-import { SigninParams } from '@/lib/next-hook-auth'
+import { SignupParams } from '@/lib/next-hook-auth'
 
 type Props = {
-  signin: (SigninParams) => void
+  signup: (SignupParams) => void
 }
 
-const SigninForm: React.FC<Props> = ({ signin }) => {
+const SignupForm: React.FC<Props> = ({ signup }) => {
   const { register, handleSubmit, errors } = useForm()
   const { addToast } = useToasts()
 
   const onSubmit = async (params: SigninParams) => {
     try {
       console.log("SigninForm.onSubmit()")
-      await signin(params)
+      await signup(params)
       addToast('Sign in Successfully', { appearance: 'success' })
     } catch (e) {
       console.log("SigninForm.onSubmit() false")
@@ -63,24 +63,22 @@ const SigninForm: React.FC<Props> = ({ signin }) => {
           />
           {errors.passwordRequired && <span>This field is required</span>}
         </div>
-      </div>
-
-      {/* <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <input
-            id="remember_me"
-            name="remember_me"
-            type="checkbox"
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-          />
-          <label
-            htmlFor="remember_me"
-            className="ml-2 block text-sm text-gray-900"
-          >
-            Remember me
+        <div>
+          <label htmlFor="password_confirmation" className="sr-only">
+            Password
           </label>
+          <input
+            id="password"
+            name="password_confirmation"
+            type="password"
+            autoComplete="current-password"
+            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Password"
+            ref={register({ required: true })}
+          />
+          {errors.passwordRequired && <span>This field is required</span>}
         </div>
-      </div> */}
+      </div>
 
       <div>
         <button
@@ -94,4 +92,4 @@ const SigninForm: React.FC<Props> = ({ signin }) => {
   )
 }
 
-export default SigninForm
+export default SignupForm

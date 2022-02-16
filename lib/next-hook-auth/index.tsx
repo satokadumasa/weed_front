@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import axios from '../../lib/axios'
+import axios from '@/lib/axios'
 import useSWR, { mutate } from 'swr'
-import customAxios from '../../lib/customAxios'
+import customAxios from '@/lib/customAxios'
 
 export type Props = {
   currentUserPath: string
@@ -79,7 +79,38 @@ export const useSignout = () => {
     await customAxios.get(context.config.currentUserPath)
     await customAxios.delete(context.config.signoutPath)
     localStorage.setItem('next-hook-auth', 'signout')
+    localStorage.removeItem('access-token')
+    localStorage.removeItem('client')
+    localStorage.removeItem('uid')
     await mutate(context.config.currentUserPath)
+  }
+}
+
+export type SignupParams = {
+  email: string
+  password: string
+  password_confirmation: string
+}
+
+export const useSignup = () => {
+  console.log("useSignup()")
+  const context = useContext(AuthContext)
+  const router = useRouter()
+  return async (params: SignupParams) => {
+    const signupParams = {}
+    signupParams[context.config.resourceName] = params
+    await axios.post(context.config.signinPath, params).then((res) => {
+      console.log("access-token:" + res.headers['access-token'])
+      localStorage.setItem('access-token', res.headers['access-token']);
+      localStorage.setItem('client', res.headers['client']);
+      localStorage.setItem('uid', res.headers['uid']);
+      localStorage.setItem('next-hook-auth', 'signin')
+    }).catch(err => {
+      console.log('err:', err)
+      return;
+    });
+    await mutate(context.config.currentUserPath)
+    router.push(context.config.redirectPath)
   }
 }
 
