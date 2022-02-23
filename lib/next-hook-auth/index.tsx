@@ -8,6 +8,7 @@ export type Props = {
   currentUserPath: string
   signinPath: string
   signoutPath: string
+  signupPath: string
   redirectPath: string
   resourceName: string
 }
@@ -21,6 +22,7 @@ export const AuthContext = createContext<AuthContext>({
     currentUserPath: '',
     signinPath: '',
     signoutPath: '',
+    signupPath: '',
     redirectPath: '',
     resourceName: 'user',
   },
@@ -33,6 +35,7 @@ export const AuthProvider: React.FC<Props> = (props) => {
       currentUserPath: props.currentUserPath,
       signinPath: props.signinPath,
       signoutPath: props.signoutPath,
+      signupPath: props.signupPath,
       redirectPath: props.redirectPath,
       resourceName: props.resourceName,
     },
@@ -97,14 +100,15 @@ export const useSignup = () => {
   const context = useContext(AuthContext)
   const router = useRouter()
   return async (params: SignupParams) => {
+    console.log("useSignup() CH-01")
     const signupParams = {}
     signupParams[context.config.resourceName] = params
-    await axios.post(context.config.signinPath, params).then((res) => {
-      console.log("access-token:" + res.headers['access-token'])
-      localStorage.setItem('access-token', res.headers['access-token']);
-      localStorage.setItem('client', res.headers['client']);
-      localStorage.setItem('uid', res.headers['uid']);
-      localStorage.setItem('next-hook-auth', 'signin')
+    await axios.post(context.config.signupPath, params).then((res) => {
+      console.log("Signup successed.")
+      // localStorage.setItem('access-token', res.headers['access-token']);
+      // localStorage.setItem('client', res.headers['client']);
+      // localStorage.setItem('uid', res.headers['uid']);
+      // localStorage.setItem('next-hook-auth', 'signin')
     }).catch(err => {
       console.log('err:', err)
       return;

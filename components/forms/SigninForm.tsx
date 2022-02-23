@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
 import { SigninParams } from '@/lib/next-hook-auth'
@@ -64,7 +65,11 @@ const SigninForm: React.FC<Props> = ({ signin }) => {
           {errors.passwordRequired && <span>This field is required</span>}
         </div>
       </div>
-
+      <div>
+        <Link href="/auth/signup">
+          <a className="text-sm text-black text-right">Signup</a>
+        </Link>
+      </div>
       {/* <div className="flex items-center justify-between">
         <div className="flex items-center">
           <input

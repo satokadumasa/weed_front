@@ -44,13 +44,7 @@ export const Layout: React.FC<Props> = ({
   children,
 }) => {
   console.log("Layout signedin:" + signedin)
-  if (loading) {
-    return (
-      <div className="flex justify-center px-4 mt-20 sm:px-6 lg:px-8 pt-8">
-        <HashLoader size={100} color="#eb4366" />
-      </div>
-    )
-  } else if (error) {
+  if (error) {
     return (
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">

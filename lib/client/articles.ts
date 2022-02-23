@@ -1,4 +1,4 @@
-import axios from '../axios'
+import axios from '@/lib/axios'
 import useSWR, { mutate } from 'swr'
 
 export type Article = {

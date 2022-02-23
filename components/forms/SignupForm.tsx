@@ -11,14 +11,14 @@ const SignupForm: React.FC<Props> = ({ signup }) => {
   const { register, handleSubmit, errors } = useForm()
   const { addToast } = useToasts()
 
-  const onSubmit = async (params: SigninParams) => {
+  const onSubmit = async (params: SignupParams) => {
     try {
-      console.log("SigninForm.onSubmit()")
+      console.log("SigninForm.onSubmit() params:" + JSON.stringify(params))
       await signup(params)
-      addToast('Sign in Successfully', { appearance: 'success' })
+      addToast('Sign up Successfully', { appearance: 'success' })
     } catch (e) {
       console.log("SigninForm.onSubmit() false")
-      addToast('Please reconfirm your input', { appearance: 'error' })
+      addToast('Please reconfirm your input!', { appearance: 'error' })
     }
   }
   const onError = () => {

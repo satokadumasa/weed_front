@@ -18,9 +18,9 @@ const Home: React.FC = () => {
             Check out my profile!
           </span>
           <div className="flex justify-center">
-            <Link href="/profile">
+            <Link href="/admin/users/new">
               <button className="bg-accent hover:bg-accent-dark text-white text-2xl py-2 px-4 w-1/2 tracking-widest rounded block">
-                Profile
+                Signup
               </button>
             </Link>
           </div>

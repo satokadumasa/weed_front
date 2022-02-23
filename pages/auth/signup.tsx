@@ -4,14 +4,16 @@ import SignupForm from '@/components/forms/SignupForm'
 import { useAuth, useSignup } from '@/lib/next-hook-auth'
 import { useRouter } from 'next/router'
 
-const Signin: React.FC = () => {
+const Signup: React.FC = () => {
   const router = useRouter()
   const { currentUser, loading } = useAuth()
   const signup = useSignup()
-
+  console.log("Signup CH-01")
   useEffect(() => {
+    console.log("Signup CH-02")
     currentUser && router.push('/')
   })
+  console.log("Signup CH-03")
 
   return (
     <Layout signedin={!!currentUser} loading={loading || !!currentUser}>
@@ -20,7 +22,7 @@ const Signin: React.FC = () => {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="/images/logo.png"
+              src="/images/logo.jpg"
               alt="September-Rain"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -35,4 +37,4 @@ const Signin: React.FC = () => {
   )
 }
 
-export default Signin
+export default Signup
