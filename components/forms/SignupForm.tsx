@@ -1,16 +1,30 @@
 import React from 'react'
+import Select from "react-select";
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
 import { SignupParams } from '@/lib/next-hook-auth'
+import { Role, useRoles } from '@/lib/client'
+import SelectBox from '@/components/SelectBox'
 
 type Props = {
   signup: (SignupParams) => void
+  roles: Role
 }
 
 const SignupForm: React.FC<Props> = ({ signup }) => {
   const { register, handleSubmit, errors } = useForm()
   const { addToast } = useToasts()
-
+  const {roles} = useRoles()
+  // const options = async () => {
+  //   const roles = await useRoles()
+  //   let data = []
+  //   console.log("SignupForm() roles:" + JSON.stringify(roles))
+  //   roles.roles.map((role) =>{
+  //     data.push({value: role.id, label: roe})
+  //   })
+  //   return data
+  // }
+  console.log("roles:" + JSON.stringify(roles))
   const onSubmit = async (params: SignupParams) => {
     try {
       console.log("SigninForm.onSubmit() params:" + JSON.stringify(params))
@@ -78,6 +92,26 @@ const SignupForm: React.FC<Props> = ({ signup }) => {
           />
           {errors.passwordRequired && <span>This field is required</span>}
         </div>
+        <div>
+          <label htmlFor="nickname" className="sr-only">
+            Email address
+          </label>
+          <input
+            id="nickname"
+            name="nickname"
+            type="text"
+            autoComplete="nickname"
+            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Nickname"
+            ref={register({ required: true })}
+          />
+        </div>
+        <div>
+          <label htmlFor="role_id" className="sr-only">
+            User Role
+          </label>
+          <SelectBox data={roles} name="role_id" />
+        </div>
       </div>
 
       <div>
@@ -85,7 +119,7 @@ const SignupForm: React.FC<Props> = ({ signup }) => {
           type="submit"
           className="w-full py-2 px-6 rounded-md text-white bg-gray-800 hover:bg-gray-900 focus:ring-2"
         >
-          Sign in
+          Sign up
         </button>
       </div>
     </form>

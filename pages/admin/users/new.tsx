@@ -6,11 +6,12 @@ import LinkButton from '@/components/LinkButton'
 import { useAuth, useSignup } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
 import { useRouter } from 'next/router'
-import { useCreateUser } from '@/lib/client'
+import { useCreateUser, useRoles, Role } from '@/lib/client'
 
 const New: React.FC = () => {
   const router = useRouter()
   const { currentUser, loading } = useAuth()
+  const roles = useRoles()
   const signup = useSignup()
   console.log("Signup CH-01")
   useEffect(() => {

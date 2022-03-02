@@ -93,6 +93,7 @@ export type SignupParams = {
   email: string
   password: string
   password_confirmation: string
+  role_id: number
 }
 
 export const useSignup = () => {
