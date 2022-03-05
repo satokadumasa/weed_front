@@ -8,10 +8,29 @@ import { useToasts } from 'react-toast-notifications'
 import { useRouter } from 'next/router'
 import { useCreateUser, useRoles, Role } from '@/lib/client'
 
-const New: React.FC = () => {
+export const getStaticProps = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/roles`)
+  const data = await res.json()
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: { roles: data, generatedAt: new Date().toLocaleString('ja') },
+    revalidate: 10,
+  }
+}
+
+const New: NextPage<{ roles: Role[]; generatedAt: string }> = ({
+  roles,
+  generatedAt,
+}) => {
   const router = useRouter()
   const { currentUser, loading } = useAuth()
-  const roles = useRoles()
+  // const roles = useRoles()
   const signup = useSignup()
   console.log("Signup CH-01")
   useEffect(() => {
@@ -35,7 +54,7 @@ const New: React.FC = () => {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600"></p>
           </div>
-          <SignupForm signup={signup} />
+          <SignupForm signup={signup} roles={roles} />
         </div>
       </div>
     </Layout>

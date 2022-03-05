@@ -8,23 +8,13 @@ import SelectBox from '@/components/SelectBox'
 
 type Props = {
   signup: (SignupParams) => void
-  roles: Role
+  roles: Role[]
 }
 
-const SignupForm: React.FC<Props> = ({ signup }) => {
+const SignupForm: React.FC<Props> = ({ signup, roles }) => {
   const { register, handleSubmit, errors } = useForm()
   const { addToast } = useToasts()
-  const {roles} = useRoles()
-  // const options = async () => {
-  //   const roles = await useRoles()
-  //   let data = []
-  //   console.log("SignupForm() roles:" + JSON.stringify(roles))
-  //   roles.roles.map((role) =>{
-  //     data.push({value: role.id, label: roe})
-  //   })
-  //   return data
-  // }
-  console.log("roles:" + JSON.stringify(roles))
+
   const onSubmit = async (params: SignupParams) => {
     try {
       console.log("SigninForm.onSubmit() params:" + JSON.stringify(params))
@@ -119,7 +109,7 @@ const SignupForm: React.FC<Props> = ({ signup }) => {
           type="submit"
           className="w-full py-2 px-6 rounded-md text-white bg-gray-800 hover:bg-gray-900 focus:ring-2"
         >
-          Sign up
+          Update
         </button>
       </div>
     </form>
