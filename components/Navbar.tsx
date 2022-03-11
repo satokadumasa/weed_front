@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
               {/* <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Profile</a> */}
               {[
                 ['Profile', '/profile'],
-                ['Apps', '/apps'],
+                ['Boards', '/boards/'],
                 ['Books', '/books'],
                 ['Articles', '/articles'],
                 ['Slides', '/slides'],
