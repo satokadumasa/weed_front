@@ -62,9 +62,9 @@ export const useSignin = () => {
     signinParams[context.config.resourceName] = params
     await axios.post(context.config.signinPath, params).then((res) => {
       console.log("access-token:" + res.headers['access-token'])
-      localStorage.setItem('access-token', res.headers['access-token']);
-      localStorage.setItem('client', res.headers['client']);
-      localStorage.setItem('uid', res.headers['uid']);
+      localStorage.setItem('access-token', res.headers['access-token'])
+      localStorage.setItem('client', res.headers['client'])
+      localStorage.setItem('uid', res.headers['uid'])
       localStorage.setItem('next-hook-auth', 'signin')
     }).catch(err => {
       console.log('err:', err)
@@ -106,10 +106,6 @@ export const useSignup = () => {
     signupParams[context.config.resourceName] = params
     await axios.post(context.config.signupPath, params).then((res) => {
       console.log("Signup successed.")
-      // localStorage.setItem('access-token', res.headers['access-token']);
-      // localStorage.setItem('client', res.headers['client']);
-      // localStorage.setItem('uid', res.headers['uid']);
-      // localStorage.setItem('next-hook-auth', 'signin')
     }).catch(err => {
       console.log('err:', err)
       return;

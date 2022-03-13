@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
-import axios from '../../lib/axios'
+import axios from '@/lib/axios'
 
 type Board = {
   id: number
@@ -42,8 +42,17 @@ const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <input
+        type="hidden"
+        name="id"
+        id="id"
+        className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
+        ref={register({ required: false })}
+        defaultValue={board?.id}
+      />
+
       <label className="block mb-4">
-        <span>書籍名</span>
+        <span>タイトル</span>
         <input
           type="text"
           name="title"
@@ -56,49 +65,16 @@ const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
         </small>
       </label>
       <label className="block mb-4">
-        <span>紹介文</span>
+        <span>本文</span>
         <textarea
-          name="description"
+          name="detil"
           className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
           rows={3}
           ref={register({ required: true })}
-          defaultValue={board?.description}
+          defaultValue={board?.detil}
         />
         <small className="mb-2 text-red-600 block">
           {errors.description && <span>This field is required</span>}
-        </small>
-      </label>
-      <label className="block mb-4">
-        <span>表紙画像</span>
-        {imageKey && <img src={imageUrl} className="h-32 m-4" />}
-        <div
-          className="border-dashed border-2 h-32 rounded flex justify-center items-center"
-          {...getRootProps()}
-        >
-          <input {...getInputProps()} />
-          <p className="block text-gray-400">Drop the files here ...</p>
-        </div>
-        <input
-          type="hidden"
-          name="key"
-          ref={register({ required: true })}
-          defaultValue={imageKey}
-        />
-        <small className="mb-2 text-red-600 block">
-          {errors.key && <span>This field is required</span>}
-        </small>
-      </label>
-      <label className="block mb-4">
-        <span>リンクURL</span>
-        <input
-          type="text"
-          name="link"
-          className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
-          ref={register({ required: true })}
-          defaultValue={board?.link}
-        />
-        <small className="mb-2 text-red-600 block">
-          {errors.link && <span>This field is required</span>}
         </small>
       </label>
       <input

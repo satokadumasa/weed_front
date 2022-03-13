@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
                 <a>
                   <div className="flex space-x-4">
                     <div className="rounded-full h-8 w-8 bg-white">
-                      <img src="/images/logo.png" alt="Workflow"></img>
+                      <img src="/images/logo.jpg" alt="Workflow"></img>
                     </div>
                     <span className="text-white text-xl">
                       September-Rain
@@ -34,12 +34,7 @@ export const Navbar: React.FC = () => {
             <div className="ml-10 flex items-baseline space-x-4">
               {/* <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Profile</a> */}
               {[
-                ['Profile', '/profile'],
                 ['Boards', '/boards/'],
-                ['Books', '/books'],
-                ['Articles', '/articles'],
-                ['Slides', '/slides'],
-                ['Skills', '/skills'],
               ].map(([name, path]) => (
                 <Link key={name} href={path}>
                   <a
@@ -98,12 +93,7 @@ export const Navbar: React.FC = () => {
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {/* <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Profile</a> */}
           {[
-            ['Profile', '/profile'],
-            ['Apps', '/apps'],
-            ['Books', '/books'],
-            ['Articles', '/articles'],
-            ['Slides', '/slides'],
-            ['Skills', '/skills'],
+            ['Board', '/boards'],
           ].map(([name, path]) => (
             <Link key={name} href={path}>
               <a

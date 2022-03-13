@@ -15,10 +15,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta property="og:description" content="September-Rain" />
         <meta name="keywords" content="Kadunasa Sato portfolie" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://portfolio.y-uuu.net" />
+        <meta property="og:url" content="https://www.september-rsin.com/" />
         <meta
           property="og:image"
-          content="https://portfolio.y-uuu.net/images/og_image.png"
+          content="https://www.september-rsin.com/images/og_image.jpg"
         />
         <meta property="og:site_name" content="September-Rain" />
         <meta name="twitter:card" content="summary_large_image" />

@@ -9,6 +9,7 @@ import { useAuth } from '@/lib/next-hook-auth'
 import { Board } from '@/lib/client'
 
 export async function getServerSideProps(context) {
+  const page = context.query.page ? context.query.page : 1
   const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/?page=" + context.query.page
   const res = await fetch(url)
   const data = await res.json()
@@ -22,26 +23,28 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      boards: data
+      boards: data.boards,
+      count: data.count,
+      page: page
     },
-    // revalidate: 10,
   }
 }
 
-const Index: NextPage<{ boards: Board[] }> = ({
+const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
   boards,
+  count,
+  page
 }) => {
   const { currentUser } = useAuth()
   const router = useRouter()
-  const get_params  = router.query
-  console.log("get_params:" + JSON.stringify(get_params))
+  console.log("count:" + count)
 
   return (
     <Layout signedin={!!currentUser} loading={!boards} >
       <Header title="Boards" />
       {currentUser && (
         <div className="flex flex-row justify-end mb-8">
-          <LinkButton href="/admin/boards/new">New</LinkButton>
+          <LinkButton href="/boards/new">New</LinkButton>
         </div>
       )}
       <div className="container mx-auto">
@@ -70,7 +73,7 @@ const Index: NextPage<{ boards: Board[] }> = ({
           ))}
         </div>
       </div>
-      <Pagination totalCount={20} url='boards' />
+      <Pagination totalCount={count} page={page} url='boards' />
     </Layout>
   )
 }
