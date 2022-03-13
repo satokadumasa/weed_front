@@ -9,3 +9,4 @@ vi .env.local
 yarn install
 yarn dev
 ```
+Use with weed_api(https://github.com/satokadumasa/weed_api)
