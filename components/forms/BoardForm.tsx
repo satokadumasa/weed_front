@@ -19,7 +19,6 @@ type Props = {
 }
 
 const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
-  const [imageUrl, setImageUrl] = useState(board?.image)
   const [imageKey, setImageKey] = useState(board?.key)
   const { register, handleSubmit, errors } = useForm()
   const onDrop = useCallback((acceptedFiles) => {
@@ -67,11 +66,11 @@ const BoardForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
       <label className="block mb-4">
         <span>本文</span>
         <textarea
-          name="detil"
+          name="detail"
           className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
           rows={3}
           ref={register({ required: true })}
-          defaultValue={board?.detil}
+          defaultValue={board?.detail}
         />
         <small className="mb-2 text-red-600 block">
           {errors.description && <span>This field is required</span>}

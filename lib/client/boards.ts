@@ -1,7 +1,6 @@
 import axios from '@/lib/axios'
-import customAxios from '@/lib/customAxios'
-
 import useSWR, { mutate } from 'swr'
+import customAxios from '@/lib/customAxios'
 
 export type Board = {
   id: number
@@ -34,7 +33,7 @@ export const useCreateBoard = () => {
 
 export const useUpdateBoard = () => {
   return async (id: number, board: Board) => {
-    await axios.put(`/boards/${id}`, board)
+    await customAxios.put(`/boards/${id}`, board)
     await mutate(`/boards/${id}`)
   }
 }
