@@ -13,7 +13,6 @@ export async function getServerSideProps(context) {
   const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/?page=" + context.query.page
   const res = await fetch(url)
   const data = await res.json()
-  console.log("data:" + JSON.stringify(data))
 
   if (!data) {
     return {
@@ -60,7 +59,8 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
                     {board.title}
                   </h1>
                 </a>
-                <p className="mb-4 leading-relaxed">{board.description}</p>
+              </div>
+              <div className="md:flex-grow md:w-1/4 w-full md:pl-16 flex flex-col items-start text-left">
                 {currentUser && (
                   <div className="flex flex-row justify-end mt-4 mb-4">
                     <LinkButton href={`/boards/${board.id}/edit`}>
@@ -68,6 +68,9 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
                     </LinkButton>
                   </div>
                 )}
+              </div>
+              <div className="md:flex-grow md:w-1/4 w-full md:pl-16 flex flex-col items-start text-left">
+                sss
               </div>
             </div>
           ))}

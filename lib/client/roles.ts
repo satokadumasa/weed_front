@@ -9,10 +9,6 @@ export type Role = {
 // const roles = {}
 
 export const useRoles = (): { roles: Role[]; error: any } => {
-  // return async (roles: data, error) {
-  //   const fetcher = () => axios.get('/roles').then((res) => res.data)
-  //   const { data, error } = await useSWR('/roles', fetcher)
-  // }
   const fetcher = () => axios.get('/roles').then((res) => res.data)
   const { data, error } = useSWR('/roles', fetcher)
   console.log("data:" + JSON.stringify(data))

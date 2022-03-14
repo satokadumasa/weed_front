@@ -11,34 +11,34 @@ export const Pagination = ({ totalCount, page, url }) => {
   const range = (start, end) =>
         [...Array(end - start + 1)].map((_, i) => start + i)
   return (
-    <ul>
-      <li key={1}>
+    <div className="flex sm:flex-row sm-12 mb-12 md:flex-row">
+      <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
         <Link href={ `/${url}/`}>
           <a>&lsaquo;&lsaquo;</a>
         </Link>
-      </li>
+      </div>
       {range(start, Number(page) - 1).map((number, index) => (
-        <li key={index}>
+        <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
           <Link href={ `/${url}/?page=${number}`}>
             <a>{number}</a>
           </Link>
-        </li>
+        </div>
       ))}
-      <li key={page}>
+      <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
         <b>{page}</b>
-      </li>
+      </div>
       {range(Number(page) + 1, end).map((number, index) => (
-        <li key={index}>
+        <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
           <Link href={ `/${url}/?page=${number}`}>
             <a>{number}</a>
           </Link>
-        </li>
+        </div>
       ))}
-      <li key={totalCount}>
+      <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
         <Link href={ `/${url}/?page=${max_page}`}>
           <a>&rsaquo;&rsaquo;</a>
         </Link>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 };

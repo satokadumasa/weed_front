@@ -10,12 +10,6 @@ export type Slide = {
   link: string
 }
 
-// export const useArticles = (): { articles: Article[]; error: any } => {
-//   const fetcher = () => axios.get('/articles').then((res) => res.data)
-//   const { data, error } = useSWR('/articles', fetcher)
-//   return { articles: data, error }
-// }
-
 export const useSlide = (id: number): { slide: Slide; error: any } => {
   const fetcher = () =>
     id ? axios.get(`/slides/${id}`).then((res) => res.data) : null
