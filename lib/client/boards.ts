@@ -19,7 +19,7 @@ export const useBoards = (): { boards: Board[]; error: any } => {
 
 export const useBoard = (id: number): { board: Board; error: any } => {
   const fetcher = () =>
-    id ? axios.get(`/boards/${id}`).then((res) => res.data) : null
+    id ? customAxios.get(`/boards/${id}`).then((res) => res.data) : null
   const { data, error } = useSWR(`/boards/${id}`, fetcher)
   return { board: data, error }
 }
@@ -27,6 +27,13 @@ export const useBoard = (id: number): { board: Board; error: any } => {
 export const useCreateBoard = () => {
   return async (board: Board) => {
     await customAxios.post(`/boards/`, board)
+    await mutate(`/boards/`)
+  }
+}
+
+export const useDeleteBoard = () => {
+  return async (id: number) => {
+    await customAxios.delete(`/boards/${id}`)
     await mutate(`/boards/`)
   }
 }

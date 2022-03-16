@@ -39,7 +39,7 @@ const SignupForm: React.FC<Props> = ({ signup, roles }) => {
       <div className="rounded-md shadow-sm -space-y-px">
         <div>
           <label htmlFor="email-address" className="sr-only">
-            Email address
+            Email Address
           </label>
           <input
             id="email-address"
@@ -84,7 +84,7 @@ const SignupForm: React.FC<Props> = ({ signup, roles }) => {
         </div>
         <div>
           <label htmlFor="nickname" className="sr-only">
-            Email address
+            Nickname
           </label>
           <input
             id="nickname"
