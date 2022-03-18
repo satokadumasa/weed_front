@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
   const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/" + board_id
   const res = await fetch(url)
   const data = await res.json()
-
+  const nl2br = require('react-nl2br')
   if (!data) {
     return {
       notFound: true,
@@ -38,6 +38,7 @@ const Show: NextPage<{ board: Board }> = ({
   const { addToast } = useToasts()
   const router = useRouter()
   const update = useUpdateBoard()
+  const nl2br = require('react-nl2br')
   console.log("-------------------")
   console.log(board)
   console.log("-------------------")
@@ -67,7 +68,7 @@ const Show: NextPage<{ board: Board }> = ({
             {board.title}
           </div>
           <div className="flex w-full md:flex-grow md:w-1/1 md:pl-16 flex-col text-left">
-            {board.detail}
+            { nl2br(board.detail) }
           </div>
         </div>
       </div>
