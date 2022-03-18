@@ -8,7 +8,7 @@ import LinkButton from '@/components/LinkButton'
 import { useAuth } from '@/lib/next-hook-auth'
 import { useToasts } from 'react-toast-notifications'
 import { Board, useBoard, useUpdateBoard } from '@/lib/client'
-
+import { useReplaceLnToBr } from '@/lib/util/StringUtil'
 export async function getServerSideProps(context) {
   const board_id = context.query.id ? context.query.id : 1
   const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/" + board_id
@@ -67,7 +67,7 @@ const Show: NextPage<{ board: Board }> = ({
             {board.title}
           </div>
           <div className="flex w-full md:flex-grow md:w-1/1 md:pl-16 flex-col text-left">
-            {board.detail}
+            <p className="leading-relaxed mb-3">{board.detail}</p>
           </div>
         </div>
       </div>
