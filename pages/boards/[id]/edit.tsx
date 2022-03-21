@@ -32,9 +32,6 @@ const Edit: React.FC = () => {
   return (
     <Layout signedin={!!currentUser} loading={loading} error={error}>
       <Header title="Edit Board" />
-      <div className="flex flex-row justify-end mb-4">
-        <LinkButton href="/boards">Back</LinkButton>
-      </div>
       <BoardForm onSubmit={onSubmit} board={board} currentUser={currentUser} onError={onError} />
     </Layout>
   )

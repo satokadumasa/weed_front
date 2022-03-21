@@ -10,7 +10,7 @@ import { Board } from '@/lib/client'
 
 export async function getServerSideProps(context) {
   const page = context.query.page ? context.query.page : 1
-  const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/?page=" + context.query.page
+  const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/?per=20&page=" + context.query.page
   const res = await fetch(url)
   const data = await res.json()
 
@@ -42,39 +42,21 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
     <Layout signedin={!!currentUser} loading={!boards} >
       <Header title="Boards" />
       {currentUser && (
-        <div className="flex flex-row justify-end">
+        <div className="flex flex-row justify-end z-100">
           <LinkButton href="/boards/new">New</LinkButton>
         </div>
       )}
-      <div className="container">
-        <div className="flex flex-wrap">
+      <div className="container h-auto z-10">
+        <div className="flex flex-wrap z-10">
           {boards?.map((board) => (
             <div
               key={board.id}
-              className="flex w-full md:flex-row flex-col items-center"
+              className="flex flex-wrap w-full flex-row z-100"
             >
-              <div className="flex w-full md:flex-grow md:w-1/2 md:pl-16 flex-col text-left">
+              <div className="flex w-3/4 pl-1 flex-col">
                 <a  href={`/boards/${board.id}/show`} rel="noreferrer">
                   {board.title}
                 </a>
-              </div>
-              <div className="flex w-full md:flex-grow md:w-1/4 md:pl-16 flex-col text-right">
-                {currentUser && (
-                  <div className="flex flex-row justify-end">
-                    <LinkButton href={`/boards/${board.id}/edit`}>
-                      Edit
-                    </LinkButton>
-                  </div>
-                )}
-              </div>
-              <div className="flex w-full md:flex-grow md:w-1/4 md:pl-16 flex-col text-right">
-                {currentUser && (
-                  <div className="flex flex-row justify-end">
-                    <LinkButton href={`/boards/${board.id}/edit`}>
-                      Edit
-                    </LinkButton>
-                  </div>
-                )}
               </div>
             </div>
           ))}

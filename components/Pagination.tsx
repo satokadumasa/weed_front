@@ -11,30 +11,30 @@ export const Pagination = ({ totalCount, page, url }) => {
   const range = (start, end) =>
         [...Array(end - start + 1)].map((_, i) => start + i)
   return (
-    <div className="flex sm:flex-row sm-12 mb-12 md:flex-row">
-      <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
+    <div className="flex sm:flex-row sm-12 mb-12 md:flex-row z-100">
+      <div className="md:flex-grow sm:flex-wrap w-1/12 w-full pl-2 flex flex-col items-start text-left">
         <Link href={ `/${url}/`}>
           <a>&lsaquo;&lsaquo;</a>
         </Link>
       </div>
       {range(start, Number(page) - 1).map((number, index) => (
-        <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
+        <div className="md:flex-grow sm:flex-wrap w-1/12 w-full pl-2 flex flex-col items-start text-left">
           <Link href={ `/${url}/?page=${number}`}>
             <a>{number}</a>
           </Link>
         </div>
       ))}
-      <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
+      <div className="md:flex-grow sm:flex-wrap w-1/12 w-full pl-2 flex flex-col items-start text-left">
         <b>{page}</b>
       </div>
       {range(Number(page) + 1, end).map((number, index) => (
-        <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
+        <div className="md:flex-grow sm:flex-wrap w-1/12 w-full pl-2 flex flex-col items-start text-left">
           <Link href={ `/${url}/?page=${number}`}>
             <a>{number}</a>
           </Link>
         </div>
       ))}
-      <div className="md:flex-grow sm:flex-wrap sm:w-1/12 md:w-1/12 w-full md:pl-16 flex flex-col items-start text-left">
+      <div className="md:flex-grow sm:flex-wrap w-1/12 w-full pl-2 flex flex-col items-start text-left">
         <Link href={ `/${url}/?page=${max_page}`}>
           <a>&rsaquo;&rsaquo;</a>
         </Link>
