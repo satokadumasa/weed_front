@@ -34,6 +34,7 @@ export const Navbar: React.FC = () => {
             <div className="ml-10 flex items-baseline space-x-4">
               {/* <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Profile</a> */}
               {[
+                ['Note', '/notes'],
                 ['Boards', '/boards/'],
               ].map(([name, path]) => (
                 <Link key={name} href={path}>
@@ -91,8 +92,8 @@ export const Navbar: React.FC = () => {
 
       <div className={`${menu ? 'block' : 'hidden'} md:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {/* <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Profile</a> */}
           {[
+            ['Note', '/notes'],
             ['Board', '/boards'],
           ].map(([name, path]) => (
             <Link key={name} href={path}>

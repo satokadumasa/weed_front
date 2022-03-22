@@ -1,27 +1,30 @@
 import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
-import axios from '../../lib/axios'
+import { useRouter } from 'next/router'
+import LinkButton from '@/components/LinkButton'
+import axios from '@/lib/axios'
 
-type Book = {
+type Note = {
   id: number
+  user_id: number
   title: string
-  description: string
-  image: string
-  link: string
-  key: string
+  overview: string
+  detil: string
+  created_at: datetime
+  updated_at: datetime
 }
 
 type Props = {
-  book?: Book
-  onSubmit: (book: Book) => void
+  board?: Note
+  onSubmit: (board: Note) => void
   onError: () => void
 }
 
-const BookForm: React.FC<Props> = ({ book, onSubmit, onError }) => {
-  const [imageUrl, setImageUrl] = useState(book?.image)
-  const [imageKey, setImageKey] = useState(book?.key)
+const NoteForm: React.FC<Props> = ({ board, onSubmit, onError }) => {
+  const [imageKey, setImageKey] = useState(board?.key)
   const { register, handleSubmit, errors } = useForm()
+  const router = useRouter()
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach(async (file) => {
       const {
@@ -40,65 +43,59 @@ const BookForm: React.FC<Props> = ({ book, onSubmit, onError }) => {
   }, [])
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
+  const onBack = async () => {
+    console.log("onDelete()")
+    router.push('/boards')
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <input
+        type="hidden"
+        name="id"
+        id="id"
+        className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
+        ref={register({ required: false })}
+        defaultValue={board?.id}
+      />
+
       <label className="block mb-4">
-        <span>書籍名</span>
+        <span>タイトル</span>
         <input
           type="text"
           name="title"
           className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
           ref={register({ required: true })}
-          defaultValue={book?.title}
+          defaultValue={board?.title}
         />
         <small className="mb-2 text-red-600 block">
           {errors.title && <span>This field is required</span>}
         </small>
       </label>
       <label className="block mb-4">
-        <span>紹介文</span>
+        <span>概略</span>
         <textarea
-          name="description"
-          className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
-          rows={3}
+          name="overview"
+          className="mt-2 mb-2 block w-full h-20 rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
+          rows={5}
           ref={register({ required: true })}
-          defaultValue={book?.description}
+          defaultValue={board?.detail}
         />
         <small className="mb-2 text-red-600 block">
           {errors.description && <span>This field is required</span>}
         </small>
       </label>
       <label className="block mb-4">
-        <span>表紙画像</span>
-        {imageKey && <img src={imageUrl} className="h-32 m-4" />}
-        <div
-          className="border-dashed border-2 h-32 rounded flex justify-center items-center"
-          {...getRootProps()}
-        >
-          <input {...getInputProps()} />
-          <p className="block text-gray-400">Drop the files here ...</p>
-        </div>
-        <input
-          type="hidden"
-          name="key"
+        <span>本文</span>
+        <textarea
+          name="detail"
+          className="mt-2 mb-2 block w-full h-20 rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
+          rows={5}
           ref={register({ required: true })}
-          defaultValue={imageKey}
+          defaultValue={board?.detail}
         />
         <small className="mb-2 text-red-600 block">
-          {errors.key && <span>This field is required</span>}
-        </small>
-      </label>
-      <label className="block mb-4">
-        <span>リンクURL</span>
-        <input
-          type="text"
-          name="link"
-          className="mt-2 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-100 focus:ring-1"
-          ref={register({ required: true })}
-          defaultValue={book?.link}
-        />
-        <small className="mb-2 text-red-600 block">
-          {errors.link && <span>This field is required</span>}
+          {errors.description && <span>This field is required</span>}
         </small>
       </label>
       <input
@@ -106,8 +103,16 @@ const BookForm: React.FC<Props> = ({ book, onSubmit, onError }) => {
         value="Save"
         className="mt-4 px-6 py-2 text-white bg-accent rounded hover:bg-accent-dark"
       />
+      <div className="flex flex-row justify-end mb-4">
+      <button
+        className="text-sm px-4 py-1 h-10 m-1 rounded bg-black text-white text-right"
+        onClick={onBack}
+      >
+        Back
+      </button>
+      </div>
     </form>
   )
 }
 
-export default BookForm
+export default NoteForm

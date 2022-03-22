@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const Pagination = ({ totalCount, page, url }) => {
   console.log("totalCount["+totalCount+"] page["+page+"]")
-  const PER_PAGE = 10
+  const PER_PAGE = 20
   let start = (page - 4) > 0 ? (page - 4) : 1
   const max_page =  Math.ceil(totalCount / PER_PAGE)
   let end = (page - 4) > 0 ? ((Number(page) + 5) < Number(max_page) ? (Number(page) + 5) : Number(max_page)) : 10
