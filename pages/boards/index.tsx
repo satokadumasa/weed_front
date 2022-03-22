@@ -58,6 +58,9 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
                   {board.title}
                 </a>
               </div>
+              <div className="flex w-1/4 pl-1 flex-col">
+                {board.created_at}
+              </div>
             </div>
           ))}
         </div>
