@@ -10,7 +10,8 @@ import { Board } from '@/lib/client'
 
 export async function getServerSideProps(context) {
   const page = context.query.page ? context.query.page : 1
-  const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/?per=20&page=" + context.query.page
+  const per = context.query.per ? context.query.per : 10
+  const url = process.env.NEXT_PUBLIC_API_SERVER + "/boards/?per=" + per + "&page=" + context.query.page
   const res = await fetch(url)
   const data = await res.json()
 
@@ -24,15 +25,17 @@ export async function getServerSideProps(context) {
     props: {
       boards: data.boards,
       count: data.count,
-      page: page
+      page: page,
+      per: per
     },
   }
 }
 
-const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
+const Index: NextPage<{ boards: Board[], count: integer, page: integer, per: integer }> = ({
   boards,
   count,
-  page
+  page,
+  per
 }) => {
   const { currentUser } = useAuth()
   const router = useRouter()
@@ -62,7 +65,7 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer }> = ({
           ))}
         </div>
       </div>
-      <Pagination totalCount={count} page={page} url='boards' />
+      <Pagination totalCount={count} page={page} per={per} url='boards' />
     </Layout>
   )
 }
