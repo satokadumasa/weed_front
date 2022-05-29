@@ -40,9 +40,9 @@ const Show: NextPage<{ board: Board }> = ({
   const update = useUpdateBoard()
   const deleteBoard = useDeleteBoard()
   const nl2br = require('react-nl2br')
-  console.log("-------------------")
+  console.log("----------------------")
   console.log(board)
-  console.log("-------------------")
+  console.log("----------------------")
   const onSubmit = async (board) => {
     try {
       update(Number(router.query.board_id), board)

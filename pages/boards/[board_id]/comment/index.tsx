@@ -6,7 +6,7 @@ import Header from '@/components/Haeder'
 import {Pagination} from '@/components/Pagination'
 import LinkButton from '@/components/LinkButton'
 import { useAuth } from '@/lib/next-hook-auth'
-import { Board } from '@/lib/client'
+import { BoardComment } from '@/lib/client'
 
 export async function getServerSideProps(context) {
   const page = context.query.page ? context.query.page : 1
@@ -31,7 +31,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-const Index: NextPage<{ boards: Board[], count: integer, page: integer, per: integer }> = ({
+const Index: NextPage<{ boards: BoardComment[], count: integer, page: integer, per: integer }> = ({
   boards,
   count,
   page,
@@ -43,7 +43,7 @@ const Index: NextPage<{ boards: Board[], count: integer, page: integer, per: int
 
   return (
     <Layout signedin={!!currentUser} loading={!boards} >
-      <Header title="Boards" />
+      <Header title="BoardComments" />
       {currentUser && (
         <div className="flex flex-row justify-end z-100">
           <LinkButton href="/boards/new">New</LinkButton>

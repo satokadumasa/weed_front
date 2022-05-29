@@ -10,8 +10,8 @@ import { Note } from '@/lib/client'
 
 export async function getServerSideProps(context) {
   const page = context.query.page ? context.query.page : 1
-  const per = context.query.per ? context.query.per : 10
-  const url = process.env.NEXT_PUBLIC_API_SERVER + "/notes/?per=20&page=" + context.query.page
+  const per = context.query.per ? context.query.per : 20
+  const url = process.env.NEXT_PUBLIC_API_SERVER + "/notes/?per=" + per + "&page=" + context.query.page
   const res = await fetch(url)
   const data = await res.json()
 
